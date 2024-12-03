@@ -20,6 +20,7 @@ help: # Print help on Makefile
   
 build: clean # Build 
 	@$(CC) $(CFLAGS) -g -o binary $(DAY) \
+		utils.cpp \
 		-W -Wall -pedantic
 
 
