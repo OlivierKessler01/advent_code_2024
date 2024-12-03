@@ -10,17 +10,7 @@ bool rec(std::vector<int>& report, int index, int non_decreasing, int previous, 
     }
     int current = report[index];
 
-    if(previous == -1){
-        if (rec(report, index+1, non_decreasing, current, jumped_already) == true) {
-            return true;
-        }
-        if(jumped_already == false) {
-            if (rec(report, index+2, non_decreasing, current, true) == true) {
-                return true;
-            }
-        }
-        return false;
-    } else if (previous == current){
+    if (previous == current){
         return false;
     }
 
@@ -88,7 +78,11 @@ int main(int argc, char** argv)
         }
         print_vector(report);
 
-        if (rec(report, 0, -1, -1, false) == true or rec(report, 1, -1, -1, true) == true) {
+        if (
+            rec(report, 1, -1, report[0], false) == true ||
+            rec(report, 2, -1, report[0], true) == true ||
+            rec(report, 2, -1, report[1], true) == true
+        ) {
             answer++;
         }
     }
