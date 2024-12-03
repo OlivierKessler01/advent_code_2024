@@ -23,6 +23,9 @@ build: clean # Build
 		utils.cpp \
 		-W -Wall -pedantic
 
+style: #Usage `make style` Run the linter and code formatters
+	ruff format *.py # formatter
+	ruff check --fix *.py # linter
 
 clean: # Remove all generated binaries
 	@rm -rf binary 
