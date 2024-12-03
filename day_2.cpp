@@ -63,7 +63,7 @@ int main(int argc, char** argv)
             p2++;
         }
 
-        if (p2 == report.size()) {
+        if (valid == true) {
             answer++;
         }
     }
