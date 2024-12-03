@@ -4,8 +4,8 @@
 #include <vector>
 #include "utils.h"
 
-bool rec(std::vector<int>& report, int index, int non_decreasing, int previous, bool jumped_already){
-    if(index > report.size() -1) {
+bool rec(std::vector<int>& report, int index, bool non_decreasing, int previous, bool jumped_already){
+    if(index >= report.size()) {
         return true;
     }
     int current = report[index];
@@ -14,13 +14,7 @@ bool rec(std::vector<int>& report, int index, int non_decreasing, int previous, 
         return false;
     }
 
-    if(non_decreasing == -1) {
-        if(current > previous) {
-            non_decreasing = 1;
-        } else {
-            non_decreasing = 0;
-        }
-    } else if (non_decreasing == 1) {
+    if (non_decreasing == true) {
         if (current < previous or current > previous + 3) {
             return false;
         }
@@ -29,7 +23,6 @@ bool rec(std::vector<int>& report, int index, int non_decreasing, int previous, 
             return false;
         }
     }
-
 
     if (rec(report, index+1, non_decreasing, current, jumped_already) == true) {
         return true;
@@ -79,9 +72,9 @@ int main(int argc, char** argv)
         print_vector(report);
 
         if (
-            rec(report, 1, -1, report[0], false) == true ||
-            rec(report, 2, -1, report[0], true) == true ||
-            rec(report, 2, -1, report[1], true) == true
+            rec(report, 1, (report[1]-report[0] > 0), report[0], false) == true ||
+            rec(report, 2, (report[2]-report[0] > 0), report[0], true) == true ||
+            rec(report, 2, (report[2]-report[1] > 0), report[1], true) == true
         ) {
             answer++;
         }
