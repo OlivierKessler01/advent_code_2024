@@ -4,9 +4,49 @@
 #include <vector>
 #include "utils.h"
 
+int find_xmas(std::vector<std::vector<char>> matrix, int i, int j){
+    std::vector<std::vector<int>> offsets = {
+        {0,1},
+        {1,0},
+        {0,-1},
+        {-1,0},
+        {-1,-1},
+        {1,1},
+        {1,-1},
+        {-1,1},
+    };
+    int answer = 0;
+    int i2,j2;
+
+    for(auto offset:offsets){
+        i2 = i;
+        j2 = j;
+
+        for(int step = 0; step< 4;i++){
+            if(step == 3){
+                if(matrix[i2][j2] == 'S'){
+                    answer+=1;
+                }
+            }else{
+
+            }
+        }
+    }
+}
+
 int solve(std::vector<std::vector<char>> matrix)
 {
-    return 10;
+    int answer = 0;
+
+    for(int i = 0 ; i< matrix.size();i++){
+        for(int j = 0; j<matrix[0].size();j++){
+            if(matrix[i][j] == 'X'){
+                answer+=find_xmas(matrix,i,j);
+            }
+        }
+    }    
+
+    return answer;
 }
 
 int main(int argc, char** argv)
