@@ -18,7 +18,7 @@ help: # Print help on Makefile
 	@echo "Check the Makefile to know exactly what each target is doing."
 
   
-build: clean # Build 
+build: clean # Usage `make build DAY=your_file.cpp` Build cpp projects 
 	@$(CC) $(CFLAGS) -g -o binary $(DAY) \
 		utils.cpp \
 		-W -Wall -pedantic
