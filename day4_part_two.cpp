@@ -5,10 +5,6 @@
 #include "utils.h"
 
 std::vector<std::vector<int>> offsets = {
-    {0,1},
-    {1,0},
-    {0,-1},
-    {-1,0},
     {-1,-1},
     {1,1},
     {1,-1},
@@ -16,32 +12,23 @@ std::vector<std::vector<int>> offsets = {
 };
 
 void find_xmas(std::vector<std::vector<char>> &matrix, int i, int j, int &answer){
-    int i2,j2;
-    char elem;
+    char top_left, top_right, bottom_left, bottom_right;
 
-    for(auto offset:offsets){
-        i2 = i;
-        j2 = j;
+    if ((i < 1 || i > matrix.size() -2) || (j < 1 || j > matrix[0].size() -2))
+        return;
+    
+    top_left = matrix[i-1][j-1];
+    top_right = matrix[i-1][j+1];
+    bottom_left = matrix[i+1][j-1];
+    bottom_right = matrix[i+1][j+1];
 
-        for(int step = 0; step < 4;step++){
-            if ((i2 < 0 or i2 == matrix.size()) || (i2 < 0 or i2 == matrix[0].size())){
-                break;
-            }
-            elem = matrix[i2][j2];
-
-            if(step == 3 && elem == 'S'){
-                answer+=1;
-            } 
-            else if ((step == 0 && elem != 'X') ||
-                    (step == 1 && elem != 'M') ||
-                    (step == 2 && elem != 'A')) 
-            {
-                break;
-            }
-            i2+=offset[0];
-            j2+=offset[1];
-        }
-    }
+    if (
+        (top_left == 'M' and top_right == 'M' and bottom_left == 'S' and bottom_right == 'S') ||
+        (top_left == 'S' and top_right == 'S' and bottom_left == 'M' and bottom_right == 'M') ||
+        (top_left == 'M' and top_right == 'S' and bottom_left == 'M' and bottom_right == 'S') ||
+        (top_left == 'S' and top_right == 'M' and bottom_left == 'S' and bottom_right == 'M')
+    )
+        answer+=1;
 
     return;
 }
@@ -52,7 +39,9 @@ void solve(std::vector<std::vector<char>> &matrix, int &answer)
 
     for(int i = 0 ; i< matrix.size();i++){
         for(int j = 0; j<matrix[0].size();j++){
-            find_xmas(matrix,i,j,answer);
+            if (matrix[i][j] == 'A'){
+                find_xmas(matrix,i,j,answer);
+            }
         }
     }    
 
