@@ -85,11 +85,9 @@ def day_6_second():
                     curr = [len(grid) -1, nn]
                     break
 
-
     m = len(grid)
     n = len(grid[0])
 
-    print(curr)
     for mm in range(m):
         for nn in range(n):
             if [mm, nn] == curr:
@@ -117,12 +115,11 @@ def day_6_second():
 
                     direction+=1
                     direction%=4
+                elif (current[0], current[1],direction) not in visited:
+                    visited.add((current[0], current[1],direction))
                 else:
-                    if (current[0], current[1],direction) not in visited:
-                        visited.add((current[0], current[1],direction))
-                    else:
-                        ans+=1
-                        break
+                    ans+=1
+                    break
 
                 if direction == 0:
                     current[0]-=1
@@ -132,7 +129,6 @@ def day_6_second():
                     current[0]+=1
                 else:
                     current[1]-=1
-
 
 
             grid[mm][nn]=prev_val
